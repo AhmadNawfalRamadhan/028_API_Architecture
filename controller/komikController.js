@@ -2,7 +2,7 @@ const db = require('../models');
 
 async function getAllKomik(req, res) {
     try {
-        const komik = await db.Komik.findAll();
+        const komik = await db.komik.findAll();
         res.status(200).json(komik);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -12,7 +12,7 @@ async function getAllKomik(req, res) {
 async function getKomikById(req, res) {
     const { id } = req.params;
     try {
-        const komik = await db.Komik.findByPk(id);
+        const komik = await db.komik.findByPk(id);
         if (!komik) {
             return res.status(404).json({ error: 'Komik not found' });
         }
@@ -26,7 +26,7 @@ async function getKomikById(req, res) {
 async function createKomik(req, res) {
     const { title, description, author } = req.body;
     try {
-        const newKomik = await db.Komik.create({ title, description, author });
+        const newKomik = await db.komik.create({ title, description, author });
         res.status(201).json(newKomik);
     } catch (err) {
         console.error('Error creating komik:', err.message);
@@ -38,7 +38,7 @@ async function updateKomik(req, res) {
     const { id } = req.params;
     const { title, description, author } = req.body;
     try {
-        const komik = await db.Komik.findByPk(id);
+        const komik = await db.komik.findByPk(id);
         if (!komik) {
             return res.status(404).json({ error: 'Komik not found' });
         }
@@ -56,7 +56,7 @@ async function updateKomik(req, res) {
 async function deleteKomik(req, res) {
     const { id } = req.params;
     try {
-        const komik = await db.Komik.findByPk(id);
+        const komik = await db.komik.findByPk(id);
         if (!komik) {
             return res.status(404).json({ error: 'Komik not found' });
         }
